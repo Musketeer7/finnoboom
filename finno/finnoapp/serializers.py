@@ -37,7 +37,7 @@ class AppSerializer(serializers.Serializer):
 	# selectedervice = JSONField()
 	created_on = serializers.DateTimeField()
 
-	services = SelectedServiceSerializer(many=True)
+	services = SelectedServiceSerializer(many=True,required=False)
 
 	def create(self, validated_data):
 		services_data = validated_data.pop('services')
