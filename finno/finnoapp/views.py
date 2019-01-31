@@ -26,6 +26,8 @@ class AppViewSet(viewsets.ModelViewSet):
     queryset = models.App.objects.all()
     serializer_class = AppSerializer
 
+    
+
 
 
 def signup(request):
