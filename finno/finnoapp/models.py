@@ -7,7 +7,8 @@ from django.template.defaultfilters import slugify
 class App(models.Model):
 	user = models.CharField(max_length=30)
 	appName = models.CharField(max_length=30)
-	IpAddress = models.GenericIPAddressField()
+	# IpAddress = models.GenericIPAddressField()
+	IpAddress = models.CharField(max_length=30)
 	appCode = models.CharField(max_length=30)
 	companyName = models.CharField(max_length=255)
 	webAddress = models.CharField(max_length=255)
@@ -21,5 +22,5 @@ class App(models.Model):
 		verbose_name_plural = 'apps'
 		# ordering = ('created',)
 
-	def __str__(self):
-		return '%s %s' % (self.appName)
+	# def __str__(self):
+	# 	return '%s %s' % (self.appName)

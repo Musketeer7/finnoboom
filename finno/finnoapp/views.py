@@ -41,3 +41,47 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+
+#========================
+"""
+class SomeView(ListCreateAPIView):
+    queryset = SomeModel.objects.all()
+    serializer_class = SomeModelSerializer
+    filter_backends = (OrderingFilter, DjangoFilterBackend)
+    filter_class = CustomFilter
+    ordering = ('id',)
+
+    def list(self, request, *args, **kwargs):
+        if request.GET.get('all', None):
+            # Do something
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            return super(SomeView, self).list(self, request, *args, **kwargs)
+
+
+class SomeView(ListCreateAPIView):
+    queryset = SomeModel.objects.all()
+    serializer_class = SomeSerializer
+    filter_backends = (OrderingFilter, DjangoFilterBackend)
+    filter_class = CustomFilter
+    ordering = ('id',)
+
+    def list(self, request, *args, **kwargs):
+        if request.GET.get('all', None):
+            queryset = self.filter_queryset(self.get_queryset())
+            self.pagination_class.default_limit = queryset.count()  # The problem is this line
+
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+
+            serializer = self.get_serializer(queryset, many=True)
+
+            return Response(serializer.data)
+        else:
+            return super(SomeView, self).list(self, request, *args, **kwargs)
+
+"""
