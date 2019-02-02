@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 django = "*"
+django-mysql = "*"
+jsonfield = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.6"
