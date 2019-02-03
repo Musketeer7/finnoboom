@@ -10,11 +10,27 @@ from . import models
 from . import serializers
 
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from django.http import HttpResponseForbidden
+
 
 class UserViewSet(viewsets.ModelViewSet):
 	"""
 	API endpoint that allows users to be viewed or edited.
 	"""
+	permission_classes = (IsAuthenticated,)
+
+	def get_queryset(self):
+		if self.request.user.is_staff:
+			queryset = User.objects.all().order_by('-date_joined')
+		else:
+			if self.action == 'list':
+				return self.queryset.filter(username=self.request.user)
+		return self.queryset
+
 	queryset = User.objects.all().order_by('-date_joined')
 	serializer_class = UserSerializer
 
@@ -23,14 +39,36 @@ class AppViewSet(viewsets.ModelViewSet):
 	"""
 	API endpoint that allows Apps to be viewed or edited.
 	"""
+
+	permission_classes = (IsAuthenticated,)
+
+
+
+	def delete(self, request, *args, **kwargs):
+		if (self.request.user.is_staff):
+			return self.destroy(request, *args, **kwargs)
+		else:
+			return HttpResponseForbidden()
+
 	queryset = models.App.objects.all()
 	serializer_class = AppSerializer
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
 	"""
-	API endpoint that allows Apps to be viewed or edited.
+	API endpoint that allows Services to be viewed or edited.
 	"""
+
+	permission_classes = (IsAuthenticated,)
+
+	def get(self, request, format=None):
+		content = {
+			'status': 'request was permitted'
+		}
+		return Response(content)
+		
+
+
 	queryset = models.Service.objects.all()
 	serializer_class = ServiceSerializer
 
