@@ -11,7 +11,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		model = User
 		fields = ('url', 'username', 'email', 'groups')
 
-class SelectedServiceSerializer(serializers.ModelSerializer):
+class ServiceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Service
@@ -37,7 +37,7 @@ class AppSerializer(serializers.Serializer):
 	# selectedervice = JSONField()
 	created_on = serializers.DateTimeField()
 
-	services = SelectedServiceSerializer(many=True,required=False)
+	services = ServiceSerializer(many=True,required=False)
 
 	def create(self, validated_data):
 		services_data = validated_data.pop('services')

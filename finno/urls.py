@@ -32,7 +32,8 @@ from finno.finnoapp import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'App', views.AppViewSet, base_name='transaction')
+router.register(r'App', views.AppViewSet)
+router.register(r'Service', views.ServiceViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
